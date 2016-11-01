@@ -1,0 +1,7 @@
+<resources>
+
+    <!-- Tamaño del botón -->
+    <dimen name="button_side">35dp</dimen>
+    <dimen name="text_margin">16dp</dimen>
+
+</resources>
