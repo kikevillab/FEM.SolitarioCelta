@@ -10,9 +10,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static android.content.Context.MODE_APPEND;
+import static android.content.Context.MODE_PRIVATE;
 
 public class ResultManager {
 
@@ -49,7 +51,7 @@ public class ResultManager {
         try {
             outFile.write((text+"\n").getBytes());
 
-
+            closeOutFile();
         } catch (IOException e) {
             Log.e("Ficheros", "Error al escribir fichero a memoria interna");
         }
@@ -66,6 +68,14 @@ public class ResultManager {
     private void closeOutFile(){
         try {
             outFile.close();
+        } catch (IOException e) {
+            Log.e("Ficheros", "Error al cerrar fichero a memoria interna");
+        }
+    }
+
+    private void closeInputFile(){
+        try {
+            inputFile.close();
         } catch (IOException e) {
             Log.e("Ficheros", "Error al cerrar fichero a memoria interna");
         }
@@ -97,7 +107,22 @@ public class ResultManager {
             Log.e("Ficheros", "Error al leer fichero a memoria interna");
         }
 
+        Collections.sort(results);
+
+        closeInputFile();
+
         return results;
+
+
+    }
+
+    public void resetResults() {
+        try {
+            outFile = _fileContext.getApplicationContext().openFileOutput(FILE_NAME, MODE_PRIVATE);
+            closeOutFile();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
 
     }

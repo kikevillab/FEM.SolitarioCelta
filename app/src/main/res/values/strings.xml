@@ -126,6 +126,8 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="txtPartidaGuardada">Partida Guardada</string>
+    <string name="txtBorrarResultados">Borrar Resultados</string>
+    <string name="txtInicio">Volver al juego</string>
 
 
 </resources>

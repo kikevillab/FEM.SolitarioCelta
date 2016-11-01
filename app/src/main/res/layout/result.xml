@@ -1,26 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="60dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:paddingLeft="20dp">
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/playerName"
+            android:textAppearance="@android:style/TextAppearance.Holo.Large"
+            tools:text="Jugador"
+            android:contentDescription="Jugador"
+            android:capitalize="sentences" />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/dateTime"
+            android:contentDescription="Fecha:"
+            tools:text="Fecha:" />
+
+    </LinearLayout>
 
     <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/playerName"
-        android:layout_weight="1" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/dateTime"
-        android:layout_weight="1" />
-
-    <TextView
-        android:text="TextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:text="fichas"
+        android:layout_width="107dp"
+        android:layout_height="match_parent"
         android:id="@+id/scorePlayer"
-        android:layout_weight="1" />
+        tools:text="Nº de fichas:"
+        android:contentDescription="Nº de fichas:"
+        android:paddingTop="30dp" />
 </LinearLayout>

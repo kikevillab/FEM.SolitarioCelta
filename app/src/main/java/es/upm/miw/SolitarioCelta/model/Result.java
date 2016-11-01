@@ -7,7 +7,7 @@ import java.util.Date;
  * Created by Enrique on 30/10/2016.
  */
 
-public class Result {
+public class Result implements Comparable<Result>{
 
     private String _playerName;
     private String _dateTime;
@@ -21,7 +21,7 @@ public class Result {
 
     public Result(String playerName, String dateTime, int score){
         this(playerName, score);
-        _score = score;
+        _dateTime = dateTime;
     }
 
     public String getPlayerName() {
@@ -50,5 +50,11 @@ public class Result {
 
     public String toString(){
         return _playerName + ";" + _dateTime + ";" + _score;
+    }
+
+    @Override
+    public int compareTo(Result r) {
+        int lastCmp = new Integer(getScore()).compareTo(new Integer(r.getScore()));
+        return (lastCmp != 0 ? lastCmp : getDateTime().compareTo(r.getDateTime()));
     }
 }

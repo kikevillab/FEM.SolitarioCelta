@@ -21,12 +21,14 @@ public class MainActivity extends Activity {
 
 	JuegoCelta juego;
     private final String GRID_KEY = "GRID_KEY";
+    private int fichasCambiadas;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         juego = new JuegoCelta();
         mostrarTablero();
+        fichasCambiadas = 0;
 
     }
 
@@ -42,6 +44,7 @@ public class MainActivity extends Activity {
         int j = resourceName.charAt(2) - '0';   // columna
 
         juego.jugar(i, j);
+        fichasCambiadas++;
 
         mostrarTablero();
         if (juego.juegoTerminado()) {
@@ -117,6 +120,7 @@ public class MainActivity extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 juego.reiniciar();
+                                fichasCambiadas = 0;
                                 mostrarTablero();
                             }
                         })
@@ -127,15 +131,22 @@ public class MainActivity extends Activity {
                     mostrarMensaje(getString(R.string.txtPartidaGuardada));
                 break;
             case R.id.opcRecuperarPartida:
-                if(prefs.contains(GRID_KEY)){
-                    String tablero = prefs.getString(GRID_KEY, null);
-                    if(tablero != null)
-                        juego.deserializaTablero(tablero);
-
-                    mostrarTablero();
-
-                }else{
-                    mostrarMensaje(getString(R.string.txtSinPartida));
+                boolean recuperar = true;
+                if(fichasCambiadas != 0){
+                    new AlertDialog.Builder(this)
+                            .setTitle("Recuperar partida")
+                            .setMessage("¿Está seguro de que desea abandonar la partida actual y recuperar la partida anterior?")
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    SharedPreferences prefs =getApplicationContext().getSharedPreferences("juego", MODE_APPEND);
+                                    restoreGame(prefs);
+                                }
+                            })
+                            .setNegativeButton(android.R.string.no, null).show();
+                }else {
+                    restoreGame(prefs);
                 }
 
                 break;
@@ -145,7 +156,20 @@ public class MainActivity extends Activity {
             default:
                 mostrarMensaje(getString(R.string.txtSinImplementar));
         }
-        return true;
+
+    return true;
+    }
+    private void restoreGame(SharedPreferences prefs) {
+        if (prefs.contains(GRID_KEY)) {
+            String tablero = prefs.getString(GRID_KEY, null);
+            if (tablero != null)
+                juego.deserializaTablero(tablero);
+
+            mostrarTablero();
+
+        } else {
+            mostrarMensaje(getString(R.string.txtSinPartida));
+        }
     }
 
     private void mostrarMensaje(String mensaje){
@@ -154,19 +178,6 @@ public class MainActivity extends Activity {
                 mensaje,
                 Toast.LENGTH_SHORT
         ).show();
-    }
-
-    private void saveGrid(){
-
-    }
-
-
-    private boolean hasSavedGrid(){
-        return true;
-    }
-
-    private void restoreGrid(){
-
     }
 
 }

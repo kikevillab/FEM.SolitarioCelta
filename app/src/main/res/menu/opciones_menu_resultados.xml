@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/opcBorrarResultados"
+        android:title="@string/txtBorrarResultados"
+        android:icon="@drawable/fa_trash_o"
+        android:orderInCategory="5"
+        android:showAsAction="ifRoom|withText"
+        />
+    <item
+        android:id="@+id/opcInicio"
+        android:title="@string/txtInicio"
+        android:icon="@drawable/ic_home_white_24dp"
+        android:orderInCategory="5"
+        android:showAsAction="ifRoom|withText"
+        />
+</menu>
